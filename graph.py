@@ -7,7 +7,6 @@ class Peer:
         self.peer_id = peer_id
         self.connections = set()
 
-# Function to generate a connected graph with random connections
 def generate_connected_graph(num_peers, min_connections, max_connections):
     graph = nx.barabasi_albert_graph(num_peers, m=min_connections)
     nodes = [Peer(peer_id=i) for i in range(num_peers)]
@@ -28,17 +27,24 @@ def generate_connected_graph(num_peers, min_connections, max_connections):
                 node.connections.add(peer)
                 peer.connections.add(node)
 
-    return graph
+    # Convert the graph to an adjacency matrix
+    adjacency_matrix = nx.to_numpy_array(graph)
 
-# Simulation parameters
+    return graph, adjacency_matrix
+
+# Example usage:
 num_peers = 10
 min_connections = 3
 max_connections = 6
 
-# Generate a connected graph with random connections
-graph = generate_connected_graph(num_peers, min_connections, max_connections)
+generated_graph, adjacency_matrix = generate_connected_graph(num_peers, min_connections, max_connections)
 
-# Visualize the graph
-pos = nx.spring_layout(graph)  # Layout for visualization
-nx.draw(graph, pos, with_labels=True, font_weight='bold', node_color='skyblue', edge_color='gray')
+# Print the graph visualization
+print("\nAdjacency Matrix:")
+print(adjacency_matrix)
+pos = nx.spring_layout(generated_graph)
+nx.draw(generated_graph, pos, with_labels=True, font_weight='bold', node_color='skyblue', node_size=800, font_size=10)
+plt.title("Generated Graph Visualization")
 plt.show()
+
+
