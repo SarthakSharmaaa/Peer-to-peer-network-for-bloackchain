@@ -1,4 +1,4 @@
-from node import CreateNodes,Person
+from node import CreateNodes,node
 
 #get the input of number of nodes in n, z0, z1
 n=input("Enter the number of nodes to be created : ")

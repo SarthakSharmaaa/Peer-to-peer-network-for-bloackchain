@@ -1,6 +1,6 @@
 import random 
 
-class Person:
+class node:
   def __init__(self,number, speed, cpu):
     self.number=number
     if speed==1:
@@ -65,6 +65,6 @@ def CreateNodes(n,z0,z1):
 
 
 
-        node_list.append(Person(i+1,speed,cpu))
+        node_list.append(node(i+1,speed,cpu))
 
     return node_list
