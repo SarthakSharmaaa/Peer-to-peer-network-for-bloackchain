@@ -1,24 +1,11 @@
-import sys
+from node import CreateNodes,Person
 
-if len(sys.argv)!=4:
-    print("Usage Error!")
-    sys.exit(1)
+#get the input of number of nodes in n, z0, z1
+n=input("Enter the number of nodes to be created : ")
+z0=input("Enter z0 : ")
+z1=input("Enter z1 : ")
 
-nodes=sys.argv[1]
-z0=sys.argv[2]
-z1=sys.argv[3]
-mean_time=sys.argv[4]
+nodes_list = CreateNodes(n,z0,z1)
 
-class Node:
-    def __init__(self,nodeid,speed,cpu,coin):
-        self.nodeid=nodeidid
-        self.speed=spped
-        self.cpu=cpu
-        self.coin=coin 
-
-slow=int(z0*n) 
-fast=n-slow
-low=int(z1*n)
-high=n-low
-
-for i in range(n):
+for i in nodes_list:
+    print(i.number,i.speed,i.cpu)
