@@ -1,6 +1,8 @@
 from node import CreateNodes,Node
+from graph import gen_graph
 import random
 import numpy as np
+
 
 
 #get the input of number of nodes in n, z0, z1,Tx
@@ -22,7 +24,6 @@ for i in range(20):
 
     nodes_list[gen1].transaction(gen2,amount,gen)
 
-for i in nodes_list:
-    print(i.transaction_list)
+gen_graph(nodes_list)
 
 
