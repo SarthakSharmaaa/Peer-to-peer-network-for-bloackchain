@@ -1,17 +1,37 @@
 import random 
 
-class node:
-  def __init__(self,number, speed, cpu):
-    self.number=number
-    if speed==1:
-        self.speed = "slow"
-    else:
-        self.speed = "fast"
+class Node:
+    def __init__(self,number, speed, cpu):
+        self.number=number
+        if speed==1:
+            self.speed = "slow"
+        else:
+            self.speed = "fast"
+        
+        if cpu==1:
+            self.cpu = "low"
+        else:
+            self.cpu = "high"
+
+        self.coins=random.randint(1000,2000)
+
+        self.transaction_list=[]
+
+        self.time_interval=0
     
-    if cpu==1:
-        self.cpu = "low"
-    else:
-        self.cpu = "high"
+    def transaction(self,to_node,amount,time_interval): 
+        self.time_interval=time_interval
+        
+        if self.coins-amount >=0 :
+            self.coins-=amount
+            transaction_string=str(self.number)+" pays "+str(to_node)+" "+str(amount)+" coins"+"_"+str(time_interval)
+            self.transaction_list.append(transaction_string)
+            print("Transaction successful")
+        else:
+            print("only have ",self.coins," but you trying to spend ",amount)
+    
+    
+
 
 def CreateNodes(n,z0,z1):
     node_list=[]
@@ -65,6 +85,6 @@ def CreateNodes(n,z0,z1):
 
 
 
-        node_list.append(node(i+1,speed,cpu))
+        node_list.append(Node(i+1,speed,cpu))
 
     return node_list
