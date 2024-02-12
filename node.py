@@ -1,4 +1,8 @@
 import random 
+import time
+import queue
+import threading
+
 
 class Node:
     def __init__(self,number, speed, cpu):
@@ -17,14 +21,60 @@ class Node:
 
         self.transaction_list=[]
 
-        self.time_interval=0
+        self.transaction_queue=queue.Queue()
+
+        self.t = threading.Thread(target=self.start_check_queue)
+
+        self.mutex = threading.Lock()
+
+        self.t.start()
+
+
+
+        self.flag=1
+
+    def gen_time(self):
+        return 2
+
+    def start_check_queue(self):
+        print("Thread for " + str(self.number) + " started")
+        while True:
+            if self.transaction_queue.empty()==False and self.flag==1:
+                front_of_queue=self.transaction_queue.get()
+                to_node=front_of_queue.split()[1]
+                amount=front_of_queue.split()[2]
+                self.transaction(int(to_node),int(amount))
+                print("Added to transaction, sleeping for 2 seconds")
+                time.sleep(self.gen_time())
+                print("sleep done")
+        
+    def stop_check_queue(self):
+        print("Thread for " + str(self.number) + " stopped")
+        if self.t.is_alive():
+            print("alive")
+        else:
+            print("Dead")
+        self.t.join(timeout=1)
     
-    def transaction(self,to_node,amount,time_interval): 
-        self.time_interval=time_interval
+
+    def gen_time(self):
+        print(str(self.number)+" sleeping")
+        return 1
+
+
+
+    def thread_handler(self,to_node,amount):
+        print("thread handler for "+ str(self.number))
+        str_to_queue=str(self.number) + " " + str(to_node) + " " + str(amount)
+        self.transaction_queue.put(str_to_queue)
+
+
+    
+    def transaction(self,to_node,amount): 
         
         if self.coins-amount >=0 :
             self.coins-=amount
-            transaction_string=str(self.number)+" pays "+str(to_node)+" "+str(amount)+" coins"+"_"+str(time_interval)
+            transaction_string=str(self.number)+" pays "+str(to_node)+" "+str(amount)+" coins"
             self.transaction_list.append(transaction_string)
             print("Transaction successful")
         else:
@@ -87,4 +137,11 @@ def CreateNodes(n,z0,z1):
 
         node_list.append(Node(i+1,speed,cpu))
 
+
     return node_list
+
+def StopNodes(nodes_list):
+    print("initiated stop threads")
+    for i in nodes_list:
+        i.flag=0
+        i.stop_check_queue()

@@ -29,9 +29,6 @@ def propagate_data_until_convergence(graph):
 
         current_data = {node: node.transaction_list.copy() for node in graph}
 
-
-
-
 def gen_graph(node_objects):
     # Create an undirected graph
     graph = nx.Graph()
@@ -65,11 +62,16 @@ def gen_graph(node_objects):
             current_degree -= 1
 
     return graph
-    
 
-def plot_graph(graph):
-    # Plot the graph
-    pos = nx.spring_layout(graph)  # Adjust layout for better visualization
-    node_labels = {node: node.number for node in graph.nodes()}  # Use "number" as node label
-    nx.draw(graph, pos, with_labels=True, font_weight='bold', labels=node_labels)
+
+
+def plot_graph(G):
+
+    # Plot the undirected graph without edge labels
+    pos = nx.spring_layout(G)  # Define the layout of the graph
+    node_labels = {node: node.number for node in G.nodes()}  # Use "number" as node label
+    nx.draw(G, pos, with_labels=False, node_size=500, node_color='skyblue', edge_color='gray')  # Draw nodes without labels
+    nx.draw_networkx_labels(G, pos, labels=node_labels, font_size=12, font_color='black')  # Draw node labels
+
+    # Display the plot
     plt.show()
