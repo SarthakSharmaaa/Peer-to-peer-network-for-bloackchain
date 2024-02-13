@@ -127,7 +127,6 @@ class Node:
             self.transaction_mutex.acquire()
             try:
                 global global_unique_transaction_id
-                global failed
                 if self.coins-amount >=0 :
                     self.coins-=amount
                     transaction_string=str(global_unique_transaction_id)+" "+str(self.number)+" pays "+str(to_node)+" "+str(amount)+" coins"
