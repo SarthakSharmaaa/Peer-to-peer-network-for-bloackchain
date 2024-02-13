@@ -2,7 +2,10 @@ import random
 import time
 import queue
 import threading
+import numpy as np
 
+global_unique_transaction_id=1
+failed=0
 
 class Node:
     def __init__(self,number, speed, cpu):
@@ -25,28 +28,34 @@ class Node:
 
         self.t = threading.Thread(target=self.start_check_queue)
 
-        self.mutex = threading.Lock()
+        self.thread_handler_mutex = threading.Lock()
+
+        self.transaction_mutex = threading.Lock()
+        
+        self.flag=0
 
         self.t.start()
 
-
-
-        self.flag=1
+        
 
     def gen_time(self):
-        return 2
+        exponential_dist = np.random.exponential(scale=2, size=100)
+        exponential_dist = np.round(exponential_dist, decimals=1) #randomly generating transaction time
+        gen=random.randint(0,99)
+        return exponential_dist[gen]
 
     def start_check_queue(self):
         print("Thread for " + str(self.number) + " started")
-        while True:
-            if self.transaction_queue.empty()==False and self.flag==1:
+        while True and self.flag==0:
+            if self.transaction_queue.empty()==False:
                 front_of_queue=self.transaction_queue.get()
                 to_node=front_of_queue.split()[1]
                 amount=front_of_queue.split()[2]
                 self.transaction(int(to_node),int(amount))
-                print("Added to transaction, sleeping for 2 seconds")
+                print("Added to transaction, sleeping ")
                 time.sleep(self.gen_time())
                 print("sleep done")
+        print("thread " , self.number , " out")
         
     def stop_check_queue(self):
         print("Thread for " + str(self.number) + " stopped")
@@ -55,30 +64,36 @@ class Node:
         else:
             print("Dead")
         self.t.join(timeout=1)
-    
-
-    def gen_time(self):
-        print(str(self.number)+" sleeping")
-        return 1
 
 
 
     def thread_handler(self,to_node,amount):
         print("thread handler for "+ str(self.number))
-        str_to_queue=str(self.number) + " " + str(to_node) + " " + str(amount)
-        self.transaction_queue.put(str_to_queue)
 
-
+        self.thread_handler_mutex.acquire()
+        try:
+            str_to_queue=str(self.number) + " " + str(to_node) + " " + str(amount)
+            self.transaction_queue.put(str_to_queue)
+        finally:
+            self.thread_handler_mutex.release()
     
     def transaction(self,to_node,amount): 
-        
-        if self.coins-amount >=0 :
-            self.coins-=amount
-            transaction_string=str(self.number)+" pays "+str(to_node)+" "+str(amount)+" coins"
-            self.transaction_list.append(transaction_string)
-            print("Transaction successful")
-        else:
-            print("only have ",self.coins," but you trying to spend ",amount)
+            
+            self.transaction_mutex.acquire()
+            try:
+                global global_unique_transaction_id
+                global failed
+                if self.coins-amount >=0 :
+                    self.coins-=amount
+                    transaction_string=str(global_unique_transaction_id)+" "+str(self.number)+" pays "+str(to_node)+" "+str(amount)+" coins"
+                    global_unique_transaction_id+=1
+                    self.transaction_list.append(transaction_string)
+                    print("Transaction successful")
+                else:
+                    print("only have ",self.coins," but you trying to spend ",amount)
+                    failed+=1
+            finally:
+                self.transaction_mutex.release()
     
     
 
@@ -143,5 +158,5 @@ def CreateNodes(n,z0,z1):
 def StopNodes(nodes_list):
     print("initiated stop threads")
     for i in nodes_list:
-        i.flag=0
+        i.flag=1
         i.stop_check_queue()
