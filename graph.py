@@ -3,27 +3,8 @@ import random
 import matplotlib.pyplot as plt
 import time
 import numpy as np
+import threading
 
-
-def random_time(t):
-    exponential_dist = np.random.exponential(scale=t, size=100)
-    exponential_dist = np.round(exponential_dist, decimals=1) #randomly generating transaction time
-    gen=random.randint(0,99)
-    return exponential_dist[gen]
-
-
-def simulate_latency(node,neighbor):
-    #ρij + |m|/cij + dij
-    p=5
-    m=10
-    c=0
-    if node.speed == "fast" and neighbor.speed=="fast":
-        c=100
-    else:
-        c=5
-    d=random_time(96/c)
-    time_to_sleep=p+(m/c)+d
-    return 1
 
 def share_data(graph, node):
     # Get neighbors of the current node
@@ -35,8 +16,7 @@ def share_data(graph, node):
     for neighbor in neighbors:
         for d in data:
             if d not in neighbor.transaction_list:
-                time.sleep(simulate_latency(node,neighbor))
-                neighbor.transaction_list.append(d) 
+                node.simulate_latency(neighbor,d) 
 
 
 def propagate_data_until_convergence(graph):

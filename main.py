@@ -13,12 +13,12 @@ def uniform_dist_time(num):
     return uniform_distribution[gen]
     
 
-def exp_distribution():
+def exp_distribution(t):
     gen=random.randint(0,99) #with 100 discrete points
     exponential_dist = np.random.exponential(scale=t, size=100)
     exponential_dist = np.round(exponential_dist, decimals=1) #randomly generating transaction time
 
-    return exp_distribution[gen]
+    return exponential_dist[gen]
 
 # #get the input of number of nodes in n, z0, z1,Tx
 # n=int(input("Enter the number of nodes to be created : "))
@@ -46,13 +46,13 @@ for i in range(20):
 
     #nodes_list[gen1].transaction(gen2,amount,exponential_dist[gen])
     
-    t = threading.Thread(target=nodes_list[gen1].thread_handler , args=(gen2,amount) )
+    th = threading.Thread(target=nodes_list[gen1].thread_handler , args=(gen2,amount) )
 
-    t.start()
-    time_between_transactions=exp_distribution()
+    th.start()
+    time_between_transactions=exp_distribution(t)
     print("transaction ", i+1, " generated and sleeping for ", time_between_transactions)
     time.sleep(time_between_transactions)
-    t.join(timeout=1)
+    th.join(timeout=1)
 
 StopNodes(nodes_list)
 

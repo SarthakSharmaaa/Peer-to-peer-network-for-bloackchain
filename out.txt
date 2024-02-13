@@ -1,0 +1,198 @@
+Thread for 1 started
+Thread for 2 started
+Thread for 3 started
+Thread for 4 started
+Thread for 5 started
+thread handler for 4
+transaction  1  generated and sleeping for  1.5
+Transaction successful
+Added to transaction, sleeping 
+thread handler for 4
+transaction  2  generated and sleeping for  2.0
+thread handler for 2
+transaction  3  generated and sleeping for  2.2
+Transaction successful
+Added to transaction, sleeping 
+sleep done
+only have  405  but you trying to spend  505
+Added to transaction, sleeping 
+thread handler for 4
+transaction  4  generated and sleeping for  2.3
+sleep done
+only have  405  but you trying to spend  590
+Added to transaction, sleeping 
+thread handler for 4
+transaction  5  generated and sleeping for  1.2
+sleep done
+sleep done
+only have  405  but you trying to spend  503
+Added to transaction, sleeping 
+thread handler for 1
+Transaction successful
+Added to transaction, sleeping 
+transaction  6  generated and sleeping for  7.1
+sleep done
+sleep done
+thread handler for 1
+transaction  7  generated and sleeping for  1.0
+Transaction successful
+Added to transaction, sleeping 
+thread handler for 3
+Transaction successful
+Added to transaction, sleeping 
+transaction  8  generated and sleeping for  3.4
+sleep done
+sleep done
+thread handler for 4
+only have  405  but you trying to spend  543
+Added to transaction, sleeping 
+transaction  9  generated and sleeping for  1.0
+sleep done
+thread handler for 2
+transaction  10  generated and sleeping for  0.1
+Transaction successful
+Added to transaction, sleeping 
+thread handler for 5
+transaction  11  generated and sleeping for  0.9
+Transaction successful
+Added to transaction, sleeping 
+thread handler for 4
+transaction  12  generated and sleeping for  2.0
+only have  405  but you trying to spend  533
+Added to transaction, sleeping 
+sleep done
+sleep done
+sleep done
+thread handler for 5
+Transaction successful
+Added to transaction, sleeping 
+transaction  13  generated and sleeping for  0.8
+thread handler for 4
+transaction  14  generated and sleeping for  4.3
+only have  405  but you trying to spend  520
+Added to transaction, sleeping 
+sleep done
+sleep done
+thread handler for 1
+transaction  15  generated and sleeping for  1.1
+only have  497  but you trying to spend  581
+Added to transaction, sleeping 
+thread handler for 4
+transaction  16  generated and sleeping for  0.6
+only have  405  but you trying to spend  568
+Added to transaction, sleeping 
+thread handler for 5
+transaction  17  generated and sleeping for  0.1
+only have  122  but you trying to spend  513
+Added to transaction, sleeping 
+thread handler for 3
+Transaction successful
+Added to transaction, sleeping 
+transaction  18  generated and sleeping for  1.0
+thread handler for 2
+only have  235  but you trying to spend  592
+Added to transaction, sleeping 
+transaction  19  generated and sleeping for  1.2
+sleep done
+sleep done
+sleep done
+sleep done
+thread handler for 5
+only have  122  but you trying to spend  557
+Added to transaction, sleeping 
+transaction  20  generated and sleeping for  1.7
+initiated stop threads
+Thread for 1 stopped
+alive
+thread  1  out
+Thread for 2 stopped
+alive
+thread  2  out
+Thread for 3 stopped
+alive
+sleep done
+sleep done
+thread  3  out
+Thread for 4 stopped
+alive
+thread  4  out
+Thread for 5 stopped
+alive
+thread  5  out
+3 1 pays 0 572 coins
+thread  1  stopped after transaction
+4 1 pays 4 570 coins
+thread  1  stopped after transaction
+3 1 pays 0 572 coins
+thread  1  stopped after transaction
+4 1 pays 4 570 coins
+thread  1  stopped after transaction
+3 1 pays 0 572 coins
+thread  1  stopped after transaction
+4 1 pays 4 570 coins
+thread  1  stopped after transaction
+3 1 pays 0 572 coins
+thread  1  stopped after transaction
+4 1 pays 4 570 coins
+thread  1  stopped after transaction
+2 2 pays 1 562 coins
+thread  2  stopped after transaction
+6 2 pays 0 582 coins
+thread  2  stopped after transaction
+2 2 pays 1 562 coins
+thread  2  stopped after transaction
+6 2 pays 0 582 coins
+thread  2  stopped after transaction
+2 2 pays 1 562 coins
+thread  2  stopped after transaction
+6 2 pays 0 582 coins
+thread  2  stopped after transaction
+5 3 pays 1 536 coins
+thread  3  stopped after transaction
+9 3 pays 3 548 coins
+thread  3  stopped after transaction
+5 3 pays 1 536 coins
+thread  3  stopped after transaction
+9 3 pays 3 548 coins
+thread  3  stopped after transaction
+5 3 pays 1 536 coins
+thread  3  stopped after transaction
+9 3 pays 3 548 coins
+thread  3  stopped after transaction
+5 3 pays 1 536 coins
+thread  3  stopped after transaction
+9 3 pays 3 548 coins
+thread  3  stopped after transaction
+2 2 pays 1 562 coins
+thread  3  stopped after transaction
+6 2 pays 0 582 coins
+thread  3  stopped after transaction
+1 4 pays 3 599 coins
+thread  4  stopped after transaction
+1 4 pays 3 599 coins
+thread  4  stopped after transaction
+1 4 pays 3 599 coins
+thread  4  stopped after transaction
+1 4 pays 3 599 coins
+thread  4  stopped after transaction
+7 5 pays 0 510 coins
+thread  5  stopped after transaction
+8 5 pays 1 591 coins
+thread  5  stopped after transaction
+7 5 pays 0 510 coins
+thread  5  stopped after transaction
+8 5 pays 1 591 coins
+thread  5  stopped after transaction
+7 5 pays 0 510 coins
+thread  5  stopped after transaction
+8 5 pays 1 591 coins
+thread  5  stopped after transaction
+7 5 pays 0 510 coins
+thread  1  stopped after transaction
+8 5 pays 1 591 coins
+thread  1  stopped after transaction
+9
+9
+9
+9
+9

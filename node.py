@@ -28,15 +28,60 @@ class Node:
 
         self.t = threading.Thread(target=self.start_check_queue)
 
+        self.th = None
+
         self.thread_handler_mutex = threading.Lock()
 
         self.transaction_mutex = threading.Lock()
+
+        self.transaction_spread_lock = threading.Lock()
         
         self.flag=0
 
         self.t.start()
 
-        
+
+    def random_time(self,t):
+        exponential_dist = np.random.exponential(scale=t, size=100)
+        exponential_dist = np.round(exponential_dist, decimals=1) #randomly generating transaction time
+        gen=random.randint(0,99)
+        return exponential_dist[gen]
+    
+
+    def simulate_thread_sleeping(self,neighbor,time_to_sleep,d):
+        time.sleep(1) # must be time to sleep 
+
+        self.transaction_spread_lock.acquire()
+        try:
+            print(d)
+            neighbor.transaction_list.append(d)
+        finally:
+            self.transaction_spread_lock.release()
+            
+
+
+    def simulate_latency(self,neighbor,d):
+        #ρij + |m|/cij + dij
+
+        p=5
+        m=10
+        c=0
+        if self.speed == "fast" and neighbor.speed=="fast":
+            c=100
+        else:
+            c=5
+        val=96/c
+        dij=self.random_time(val)
+        time_to_sleep=p+(m/c)+dij
+
+        self.th = threading.Thread(target=self.simulate_thread_sleeping, args=(neighbor,time_to_sleep,d))
+
+        self.th.start()
+
+        self.th.join()
+        print("thread ",self.number ," stopped after transaction")
+
+    
 
     def gen_time(self):
         exponential_dist = np.random.exponential(scale=2, size=100)
