@@ -1,9 +1,9 @@
 import networkx as nx
 import random
 import matplotlib.pyplot as plt
-import time
 import numpy as np
 import threading
+import asyncio
 
 
 def share_data(graph, node):

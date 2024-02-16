@@ -4,8 +4,7 @@ import random
 import numpy as np
 import threading
 import time
-
-
+import asyncio
 
 def uniform_dist_time(num):
     gen=random.randint(0,99) #with 100 discrete points
@@ -20,44 +19,29 @@ def exp_distribution(t):
 
     return exponential_dist[gen]
 
+def interarrival_blocks(n,z1,blockInterval):
+    fast=int(z1*n/100)
+    slow=n-fast
+    slowInterarrival=blockInterval*(9*fast+slow)
+    fastInterarrival=blockInterval*(9*fast+slow)/10
+    return slowInterarrival,fastInterarrival
+
+
 # #get the input of number of nodes in n, z0, z1,Tx
 # n=int(input("Enter the number of nodes to be created : "))
 # z0=int(input("Enter z0 : "))
 # z1=int(input("Enter z1 : "))
 # t=int(input("Enter Tx : "))
 # num=int(input("Choose a number from a uniform distribution :"))
-n=5
+n=20
 z0=40
 z1=60
-t=2
-
+t=1
 
 nodes_list = CreateNodes(n,z0,z1)
-fin_graph=gen_graph(nodes_list)
-
-
-#generate transactions at random time
-for i in range(20):
-    
-    gen1=random.randint(0,n-1) #transaction creating node
-    gen2=random.randint(0,n-1)  #transaction recieving node
-
-    amount=random.randint(500,600) #amount spent
-
-    #nodes_list[gen1].transaction(gen2,amount,exponential_dist[gen])
-    
-    th = threading.Thread(target=nodes_list[gen1].thread_handler , args=(gen2,amount) )
-
-    th.start()
-    time_between_transactions=exp_distribution(t)
-    print("transaction ", i+1, " generated and sleeping for ", time_between_transactions)
-    time.sleep(time_between_transactions)
-    th.join(timeout=1)
-
 StopNodes(nodes_list)
-
-propagate_data_until_convergence(fin_graph)
-
+fin_graph=gen_graph(nodes_list)
+#propagate_data_until_convergence(fin_graph)
 
 for i in fin_graph:
     print(len(i.transaction_list))
