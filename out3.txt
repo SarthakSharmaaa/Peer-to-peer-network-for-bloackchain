@@ -1,0 +1,46 @@
+simulating please wait
+total no. of blocks in  1  is  46
+no. of valid transactions in a node 1  is  158
+end of node
+total no. of blocks in  2  is  46
+no. of valid transactions in a node 2  is  158
+end of node
+total no. of blocks in  3  is  46
+no. of valid transactions in a node 3  is  158
+end of node
+total no. of blocks in  4  is  46
+no. of valid transactions in a node 4  is  158
+end of node
+total no. of blocks in  5  is  46
+no. of valid transactions in a node 5  is  158
+end of node
+total no. of blocks in  6  is  46
+no. of valid transactions in a node 6  is  158
+end of node
+total no. of blocks in  7  is  46
+no. of valid transactions in a node 7  is  158
+end of node
+total no. of blocks in  8  is  46
+no. of valid transactions in a node 8  is  158
+end of node
+total no. of blocks in  9  is  46
+no. of valid transactions in a node 9  is  158
+end of node
+total no. of blocks in  10  is  46
+no. of valid transactions in a node 10  is  158
+end of node
+total no. of blocks in  11  is  46
+no. of valid transactions in a node 11  is  158
+end of node
+total no. of blocks in  12  is  46
+no. of valid transactions in a node 12  is  158
+end of node
+total no. of blocks in  13  is  46
+no. of valid transactions in a node 13  is  158
+end of node
+total no. of blocks in  14  is  46
+no. of valid transactions in a node 14  is  158
+end of node
+total no. of blocks in  15  is  46
+no. of valid transactions in a node 15  is  158
+end of node

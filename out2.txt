@@ -1,0 +1,16 @@
+simulating please wait
+total no. of blocks in  1  is  11
+no. of valid transactions in a node 1  is  53
+end of node
+total no. of blocks in  2  is  11
+no. of valid transactions in a node 2  is  53
+end of node
+total no. of blocks in  3  is  11
+no. of valid transactions in a node 3  is  53
+end of node
+total no. of blocks in  4  is  11
+no. of valid transactions in a node 4  is  53
+end of node
+total no. of blocks in  5  is  11
+no. of valid transactions in a node 5  is  53
+end of node

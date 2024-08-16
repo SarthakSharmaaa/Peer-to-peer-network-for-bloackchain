@@ -8,11 +8,12 @@ import asyncio
 
 def share_data(graph, node):
     # Get neighbors of the current node
+    # Share 'transaction' data with neighbors, excluding lists already present
+
     neighbors = list(graph.neighbors(node))
 
     data=node.transaction_list
 
-    # Share 'transaction' data with neighbors, excluding lists already present
     for neighbor in neighbors:
         for d in data:
             if d not in neighbor.transaction_list:
@@ -20,6 +21,8 @@ def share_data(graph, node):
 
 
 def propagate_data_until_convergence(graph):
+
+    # IT is used to broadcast the data
     previous_data = {node: None for node in graph}
 
     current_data = {node: node.transaction_list.copy() for node in graph}
@@ -33,33 +36,23 @@ def propagate_data_until_convergence(graph):
         current_data = {node: node.transaction_list.copy() for node in graph}
 
 def gen_graph(node_objects):
-    # Create an undirected graph
+    # Create an undirected graph with minimum degree 3 and maximum degree 6 with nodes as node objects
     graph = nx.Graph()
-
-    # Add nodes to the graph
     graph.add_nodes_from(node_objects)
-
-    # Connect nodes based on the desired connectivity constraints
     for i, node in enumerate(node_objects):
-        # Calculate the current degree of the node
         current_degree = graph.degree(node)
 
-        # Connect the node to ensure minimum 3 connectivity
         while current_degree < 3:
-            # Choose a random node from the remaining nodes
             remaining_nodes = set(node_objects) - set(graph.neighbors(node))
             if remaining_nodes:
                 random_node = random.choice(list(remaining_nodes))
-                # Avoid self-loops
                 if random_node != node:
                     graph.add_edge(node, random_node)
                     current_degree += 1
             else:
-                break  # No remaining nodes to connect
+                break  
 
-        # Limit the degree to a maximum of 6 connectivity
         while current_degree > 6:
-            # Choose a random neighbor and remove the edge
             neighbor = random.choice(list(graph.neighbors(node)))
             graph.remove_edge(node, neighbor)
             current_degree -= 1
@@ -67,14 +60,41 @@ def gen_graph(node_objects):
     return graph
 
 
+def share_data_block(graph, node):
+    # Get neighbors of the current node
+    # Share 'transaction' data with neighbors, excluding keys already present
+
+    neighbors = list(graph.neighbors(node))
+
+    data=node.block_chain.copy()
+
+    for neighbor in neighbors:
+        for key, value in data.items():
+            if key not in neighbor.block_chain:
+                node.attach_block(neighbor,value)
+
+def propagate_data_until_convergence_block(graph):
+
+    #It is used to broadcast the block
+    previous_data = {node: None for node in graph}
+
+    current_data = {node: node.block_chain.copy() for node in graph}
+
+    while current_data != previous_data:
+        previous_data = current_data.copy()
+
+        for node in graph:
+            share_data_block(graph, node)
+
+        current_data = {node: node.block_chain.copy() for node in graph}
+
 
 def plot_graph(G):
 
-    # Plot the undirected graph without edge labels
-    pos = nx.spring_layout(G)  # Define the layout of the graph
-    node_labels = {node: node.number for node in G.nodes()}  # Use "number" as node label
-    nx.draw(G, pos, with_labels=False, node_size=500, node_color='skyblue', edge_color='gray')  # Draw nodes without labels
-    nx.draw_networkx_labels(G, pos, labels=node_labels, font_size=12, font_color='black')  # Draw node labels
+    
+    pos = nx.spring_layout(G) 
+    node_labels = {node: node.number for node in G.nodes()} 
+    nx.draw(G, pos, with_labels=False, node_size=500, node_color='skyblue', edge_color='gray')  
+    nx.draw_networkx_labels(G, pos, labels=node_labels, font_size=12, font_color='black')  
 
-    # Display the plot
-    plt.show()
+    plt.savefig("10_nodes")

@@ -1,19 +1,27 @@
 import hashlib
 class Block:
-    def _init_(self,creator,parent,transaction,depth):
+    def __init__(self,creator,parent,transactions,create_time_stamp):
+
+        #It creates the block class with different parameters
         self.creator=creator
-        self.transactions=transaction
-        self.blockID=self.createID(self.transactions)
+        self.transactions=transactions
         self.parent=parent
-        self.depth=depth
+        self.blockID=self.createID()
+        self.valid="yes"
+        self.create_time_stamp = create_time_stamp
+        
         
         
     def createID(self):
-        transactionString=""+str(self.previous_blockID)
+
+        #USed to create the blockID using hashlib
+        transactionString=""
         for txn in self.transactions:
             transactionString+=txn
         sha=hashlib.sha256(transactionString.encode())
         return sha.hexdigest()
     
     def getblockID(self):
+
+        #Used to get the blockID
         return self.blockID
